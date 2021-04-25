@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">AtoZFit</string>
+    <string name="welcome_txt">Welcome User</string>
+    <string name="BPFileName">AtoZBPFile.txt</string>
+    <string name="UserFileName">AtoZBPUsers.txt</string>
+    <string name="PatientName">%1$s</string>
+    <string name="enter_name">Enter Your Name</string>
+    <string name="save_btn">Save</string>
+    <string name="copyright_txt">A to Z Fit</string>
+    <string name="SYSTOLIC_TXT">SYSTOLIC</string>
+    <string name="DIASTOLIC_TXT">DIASTOLIC</string>
+    <string name="ADD_TEXT">ADD</string>
+    <string name="DATE_TXT">DATE</string>
+    <string name="ENTER_TXT">Record Data</string>
+    <string name="title_activity_user__registration">User_Registration</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="add_user_txt">Add User</string>
+    <string name="add_bp_txt">Add BP Readings</string>
+    <string name="view_bp_txt">View BP Readings</string>
+</resources>
