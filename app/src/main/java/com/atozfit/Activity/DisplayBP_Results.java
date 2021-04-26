@@ -88,8 +88,6 @@ public class DisplayBP_Results extends AppCompatActivity {
     }
 
     public void loadData() {
-
-
         int leftRowMargin=0;
         int topRowMargin=0;
         int rightRowMargin=0;
@@ -102,8 +100,6 @@ public class DisplayBP_Results extends AppCompatActivity {
 
         AtoZBPService bpService = new AtoZBPService();
         List<AtoZBPAttributes> data = bpService.retrieveBPData();
-
-        System.out.print("**************"+data);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM HH:mm, yyyy",Locale.ENGLISH);
 
 

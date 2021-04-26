@@ -45,7 +45,7 @@ public class AddBPReadings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 recordBPData(v);
-                openNewActivity(DisplayBP_Results.class);
+                openNewActivity(GraphViewer.class);
             }
         });
     }
