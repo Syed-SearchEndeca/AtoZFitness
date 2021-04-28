@@ -13,6 +13,7 @@ import com.atozfit.R;
 import com.atozfit.Service.AtoZBPService;
 import com.atozfit.main.AtoZBPAttributes;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,7 +52,7 @@ public class AddBPReadings extends AppCompatActivity {
     }
 
     public void recordBPData(View view) {
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM-dd-yyyy", Locale.ENGLISH);
         Date date = new Date();
         AtoZBPService bpService = new AtoZBPService();
         List<AtoZBPAttributes> bpList = new ArrayList<>();
@@ -63,7 +64,7 @@ public class AddBPReadings extends AppCompatActivity {
         EditText diastolicText = (EditText) findViewById(R.id.diastolicText);
         String diastolic = diastolicText.getText().toString();
         atobpreadings.setDiastolic(diastolic);
-        atobpreadings.setDate(myCalendar.getTime());
+        atobpreadings.setDate(formatter.format(date));
         bpList.add(atobpreadings);
         bpService.saveData(bpList);
     }

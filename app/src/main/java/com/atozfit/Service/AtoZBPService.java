@@ -71,23 +71,20 @@ public class AtoZBPService {
             InputStreamReader inputRead = new InputStreamReader(fileIn);
             BufferedReader reader = new BufferedReader(inputRead);
             String readText=null;
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM-dd-yyyy", Locale.ENGLISH);
+
             while ((readText=reader.readLine()) != null) {
                 if (readText != null && !readText.isEmpty()) {
                     String[] arrStr = readText.split("\\"+delimit);
                     if (arrStr.length > 4) {
                         AtoZBPAttributes atozbpattributes = new AtoZBPAttributes();
-                        atozbpattributes.setsNo(Integer.parseInt(arrStr[0]));
-                        Log.d(TAG, "SNO:" + Integer.parseInt(arrStr[0]));
-                        try {
-                            Calendar cal = Calendar.getInstance();
-                            SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH);
-                            cal.setTime(sdf.parse(arrStr[1]));// all done
-                            final Date date = cal.getTime();
-                            String year = new SimpleDateFormat("yyyy").format(date); // 4 digit year
-                            atozbpattributes.setDate(date);
-                            Log.d(TAG, "Date:" + date);
-                            atozbpattributes.setYear(year);
-                            Log.d(TAG, "Year:" + year);
+                            atozbpattributes.setsNo(Integer.parseInt(arrStr[0]));
+                            Log.d(TAG, "SNO:" + Integer.parseInt(arrStr[0]));
+                            String[] splits = arrStr[1].split("-");
+                            atozbpattributes.setDate(arrStr[1]);
+                            Log.d(TAG, "Date:" + splits[1]);
+                            atozbpattributes.setYear(splits[2]);
+                            Log.d(TAG, "Year:" + splits[2]);
                             atozbpattributes.setPatientName(arrStr[2]);
                             Log.d(TAG, "Patient Name:" + arrStr[2]);
                             atozbpattributes.setSystolic(arrStr[3]);
@@ -95,13 +92,10 @@ public class AtoZBPService {
                             atozbpattributes.setDiastolic(arrStr[4]);
                             Log.d(TAG, "Diastolic:" + arrStr[4]);
                             bpList.add(atozbpattributes);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
                         }
                     }
                 }
 
-            }
             inputRead.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -156,5 +150,38 @@ public class AtoZBPService {
             e.printStackTrace();
         }
         return userNamList.isEmpty() ? "" : userNamList.get(0);
+    }
+
+    public List<AtoZBPAttributes> fetchBasedOnDate(List<AtoZBPAttributes> data){
+        List<String> dateList = new ArrayList<>();
+        List<AtoZBPAttributes> filteredList = new ArrayList<>();
+        for(AtoZBPAttributes dat:data){
+            if(!dateList.contains(dat.getDate())){
+                filteredList.add(filterResults(data,dat.getDate()));
+                dateList.add(dat.getDate());
+            }
+        }
+        return filteredList;
+    }
+    public AtoZBPAttributes filterResults(List<AtoZBPAttributes> data,String date){
+        AtoZBPAttributes atzAttr = new AtoZBPAttributes();
+        int sysMax=Integer.parseInt(data.get(0).getSystolic());
+        int diaMax=Integer.parseInt(data.get(0).getDiastolic());
+        for(AtoZBPAttributes dat:data){
+            if(dat.getDate().equals(date)){
+                if(Integer.parseInt(dat.getSystolic())>sysMax){
+                    sysMax=Integer.parseInt(dat.getSystolic());
+                }
+                if(Integer.parseInt(dat.getDiastolic())>diaMax){
+                    diaMax=Integer.parseInt(dat.getDiastolic());
+                }
+            }
+        }
+        atzAttr.setPatientName(data.get(0).getPatientName());
+        atzAttr.setSystolic(String.valueOf(sysMax));
+        atzAttr.setDiastolic(String.valueOf(diaMax));
+        atzAttr.setDate(date);
+        atzAttr.setYear(data.get(0).getYear());
+        return atzAttr;
     }
 }

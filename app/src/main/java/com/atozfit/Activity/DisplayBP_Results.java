@@ -157,7 +157,7 @@ public class DisplayBP_Results extends AppCompatActivity {
             }else {
                 tv2.setBackgroundColor(Color.parseColor("#ffffff"));
                 tv2.setTextColor(Color.parseColor("#000000"));
-                tv2.setText(dateFormat.format(row.getDate()));
+                tv2.setText(row.getDate());
             }
 
 
