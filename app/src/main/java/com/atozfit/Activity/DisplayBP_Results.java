@@ -45,11 +45,10 @@ public class DisplayBP_Results extends AppCompatActivity {
 
     public void startLoadData() {
         mProgressBar.setCancelable(false);
-        mProgressBar.setMessage("Fetching Invoices..");
+        mProgressBar.setMessage("Fetching Readings..");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressBar.show();
         new LoadDataTask().execute(0);
-
     }
 
 

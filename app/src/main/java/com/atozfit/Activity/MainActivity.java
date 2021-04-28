@@ -13,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.atozfit.R;
 import com.atozfit.Service.AtoZBPService;
+import com.atozfit.dto.AtoZBPRepo;
+import com.atozfit.main.AtoZBPAttributes;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
     Button addBpBtn;
 
     Button viewBpBtn;
+
+    TextView systolicTxt =null;
+
+    TextView diastolicTxt=null;
 
     public static Context getContext() {
         return instance.getApplicationContext();
@@ -52,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         mProgressBar = new ProgressDialog(this);
         Intent intent = getIntent();
         String patientName = retriveName();
-                //intent.getStringExtra("patientName");
-       if(patientName!=null && !patientName.isEmpty()){
+        startLoadData();
+        if(patientName!=null && !patientName.isEmpty()){
            TextView tvName = (TextView)findViewById(R.id.welcome_txt);
            tvName.setText("Welcome:" + " "+patientName);
        }
@@ -92,6 +100,40 @@ public class MainActivity extends AppCompatActivity {
         }
         startActivity(intent);
     }
+
+    public void startLoadData() {
+        atoZBPService= new AtoZBPService();
+        List<AtoZBPAttributes> bpAttributes=atoZBPService.retrieveBPData();
+        int size=bpAttributes.size();
+        systolicTxt = (TextView)findViewById(R.id.Systolic_txt);
+        systolicTxt.setText("Systolic:" + " "+bpAttributes.get(size-1).getSystolic());
+        diastolicTxt = (TextView)findViewById(R.id.Diastolic_txt);
+        diastolicTxt.setText("Diastolic:" + " "+bpAttributes.get(size-1).getDiastolic());
+        systolicTxt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), GraphViewer.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+        diastolicTxt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), GraphViewer.class);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+    }
+
+
+
 
 }
 

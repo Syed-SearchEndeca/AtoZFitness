@@ -35,4 +35,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/view_bp_txt" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_recent_data"
+        tools:text="@string/view_recent_data" />
+
+    <TextView
+        android:id="@+id/Systolic_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/Diastolic_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>

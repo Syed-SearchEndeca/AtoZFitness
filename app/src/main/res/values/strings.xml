@@ -21,4 +21,6 @@
     <string name="add_user_txt">Add User</string>
     <string name="add_bp_txt">Add BP Readings</string>
     <string name="view_bp_txt">View BP Readings</string>
+    <string name="view_recent_data">Recent Data</string>
+
 </resources>
