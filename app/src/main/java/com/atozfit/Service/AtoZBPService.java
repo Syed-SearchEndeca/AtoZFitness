@@ -104,6 +104,7 @@ public class AtoZBPService {
         }
         Log.d(TAG, "bpList List Size:" + bpList.size());
         Log.d(TAG, "Outside the AtoZBPService returnData method");
+        bpList=fetchBasedOnDate(bpList);
         return bpList;
     }
 

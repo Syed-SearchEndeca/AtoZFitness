@@ -31,6 +31,10 @@ public class DisplayBP_Results extends AppCompatActivity {
 
     private TableLayout mTableLayout;
 
+    TextView systolicTxt =null;
+
+    TextView diastolicTxt=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class DisplayBP_Results extends AppCompatActivity {
          mTableLayout = (TableLayout) findViewById(R.id.tableInvoices);
          mTableLayout.setStretchAllColumns(true);
          startLoadData();
+        diastolicTxt = (TextView)findViewById(R.id.Diastolic_txt);
+
     }
 
     public void startLoadData() {
@@ -49,6 +55,7 @@ public class DisplayBP_Results extends AppCompatActivity {
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressBar.show();
         new LoadDataTask().execute(0);
+
     }
 
 
@@ -86,7 +93,11 @@ public class DisplayBP_Results extends AppCompatActivity {
         }
     }
 
+
+
     public void loadData() {
+        int systolicMean=0;
+        int diastolicMean=0;
         int leftRowMargin=0;
         int topRowMargin=0;
         int rightRowMargin=0;
@@ -228,6 +239,7 @@ public class DisplayBP_Results extends AppCompatActivity {
                 tv4.setTextColor(Color.parseColor("#000000"));
                 tv4.setText(row.getSystolic());
                 tv4.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                systolicMean+=Integer.parseInt(row.getSystolic());
             }
 
             layAmounts.addView(tv4);
@@ -266,9 +278,32 @@ public class DisplayBP_Results extends AppCompatActivity {
                 tv5.setTextColor(Color.parseColor("#000000"));
                 tv5.setText(row.getDiastolic());
                 tv5.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
+                diastolicMean+=Integer.parseInt(row.getDiastolic());
             }
 
             layDiastolic.addView(tv5);
+            LinearLayout layMean=null;
+            if(i+1==rows){
+                layMean = new LinearLayout(this);
+                layMean.setOrientation(LinearLayout.VERTICAL);
+                layMean.setGravity(Gravity.CENTER_VERTICAL);
+                layMean.setPadding(0, 0, 0, 0);
+                layMean.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                        TableRow.LayoutParams.MATCH_PARENT));
+
+                final TextView tv6 = new TextView(this);
+
+                tv6.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                            TableRow.LayoutParams.WRAP_CONTENT));
+                tv6.setPadding(0, 0, 1, 5);
+                layMean.setBackgroundColor(Color.parseColor("#ffffff"));
+                int sysMean=systolicMean/rows;
+                int diasMean=diastolicMean/rows;
+                tv6.setText("BP:"+sysMean+"/"+diasMean+"mmHg");
+                tv6.setGravity(Gravity.RIGHT);
+                layMean.addView(tv6);
+            }
+
 
 
 
@@ -284,11 +319,28 @@ public class DisplayBP_Results extends AppCompatActivity {
 
 
 
+
+
+
             tr.addView(tv);
             tr.addView(tv2);
             tr.addView(layCustomer);
             tr.addView(layAmounts);
             tr.addView(layDiastolic);
+            TableRow tr1=null;
+            TableLayout.LayoutParams tr1Params=null;
+            if(i+1==rows){
+                tr1 = new TableRow(this);
+                tr.setId(rows + 1);
+                 tr1Params = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
+                        TableLayout.LayoutParams.WRAP_CONTENT);
+                tr1Params.setMargins(leftRowMargin, topRowMargin, rightRowMargin, bottomRowMargin);
+                tr1.setPadding(0,0,0,0);
+                tr1.setLayoutParams(trParams);
+                tr1.addView(layMean);
+            }
+
+
 
             if (i > -1) {
 
@@ -303,7 +355,9 @@ public class DisplayBP_Results extends AppCompatActivity {
 
             }
             mTableLayout.addView(tr, trParams);
-
+            if(i+1==rows){
+            mTableLayout.addView(tr1, tr1Params);
+}
             if (i > -1) {
 
                 // add separator row
@@ -328,5 +382,7 @@ public class DisplayBP_Results extends AppCompatActivity {
 
         }
     }
+
+
 
 }
