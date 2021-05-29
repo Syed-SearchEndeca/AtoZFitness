@@ -116,10 +116,12 @@ public class MainActivity extends AppCompatActivity {
         atoZBPService= new AtoZBPService();
         List<AtoZBPAttributes> bpAttributes=atoZBPService.retrieveBPData();
         int size=bpAttributes.size();
-        systolicTxt = (TextView)findViewById(R.id.Systolic_txt);
-        systolicTxt.setText("Systolic:" + " "+bpAttributes.get(size-1).getSystolic());
-        diastolicTxt = (TextView)findViewById(R.id.Diastolic_txt);
-        diastolicTxt.setText("Diastolic:" + " "+bpAttributes.get(size-1).getDiastolic());
+        if(size>0) {
+            systolicTxt = (TextView) findViewById(R.id.Systolic_txt);
+            systolicTxt.setText("Systolic:" + " " + bpAttributes.get(size - 1).getSystolic());
+            diastolicTxt = (TextView) findViewById(R.id.Diastolic_txt);
+            diastolicTxt.setText("Diastolic:" + " " + bpAttributes.get(size - 1).getDiastolic());
+        }
     }
 
 }
