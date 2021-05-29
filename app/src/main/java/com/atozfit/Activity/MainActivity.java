@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -39,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     TextView systolicTxt =null;
 
     TextView diastolicTxt=null;
+
+    ImageButton graphicalView;
 
     public static Context getContext() {
         return instance.getApplicationContext();
@@ -74,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        graphicalView = (ImageButton) findViewById(R.id.GraphicalViewBtn);
+        graphicalView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNewActivity(GraphViewer.class);
+            }
+        });
+
 
         addBpBtn = (Button) findViewById(R.id.add_bp_btn);
         addBpBtn.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         openNewActivity(DisplayBP_Results.class);
     }
     });
-
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 }
     public void openNewActivity(Class className){
         Intent intent = new Intent(this,className);
@@ -109,31 +120,7 @@ public class MainActivity extends AppCompatActivity {
         systolicTxt.setText("Systolic:" + " "+bpAttributes.get(size-1).getSystolic());
         diastolicTxt = (TextView)findViewById(R.id.Diastolic_txt);
         diastolicTxt.setText("Diastolic:" + " "+bpAttributes.get(size-1).getDiastolic());
-        systolicTxt.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), GraphViewer.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
-
-        diastolicTxt.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), GraphViewer.class);
-                startActivity(intent);
-                finish();
-
-            }
-        });
     }
-
-
-
 
 }
 

@@ -49,6 +49,7 @@ public class AddBPReadings extends AppCompatActivity {
                 openNewActivity(DisplayBP_Results.class);
             }
         });
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     public void recordBPData(View view) {

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.atozfit.R;
 import com.atozfit.Service.AtoZBPService;
 import com.atozfit.main.AtoZBPAttributes;
+import com.jjoe64.graphview.DefaultLabelFormatter;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
@@ -16,6 +17,7 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,6 +28,7 @@ public class GraphViewer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_view);
         drawGraph();
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     public void drawGraph(){
@@ -72,6 +75,17 @@ public class GraphViewer extends AppCompatActivity {
         graph1.setTitleColor(R.color.purple_200);
         staticLabelsFormatter1.setHorizontalLabels(labels);
         graph1.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter1);
+        graph1.getGridLabelRenderer().setLabelFormatter(new DefaultLabelFormatter(){
+            @Override
+            public String formatLabel(double value,boolean isValueX){
+                if (isValueX) {
+                    return dateFormat.format(new Date((long) value));
+                }
+                else{
+                    return super.formatLabel(value, isValueX);
+                }
+            }
+        });
     }
 
     private DataPoint[] generateDataPoint(String type,List<AtoZBPAttributes> data) throws ParseException {
@@ -100,12 +114,12 @@ public class GraphViewer extends AppCompatActivity {
             for(int i=0;i<data.size();i++){
                 String v = data.get(i).getDate();
                String s[]= v.split("-");
-             if(!month.contains(s[0])) {
+             //if(!month.contains(s[0])) {
                  values[i] = v;
-                 month.add(s[0]);
-             }else{
+                // month.add(s[0]);
+             /*}else{
                  values[i]=".";
-             }
+             }*/
 
             }
         }

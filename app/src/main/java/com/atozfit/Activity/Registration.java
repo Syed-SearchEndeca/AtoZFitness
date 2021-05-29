@@ -30,6 +30,7 @@ public class Registration extends AppCompatActivity {
                 openNewActivity(MainActivity.class);
             }
         });
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     /**

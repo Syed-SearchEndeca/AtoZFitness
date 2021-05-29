@@ -46,6 +46,7 @@ public class DisplayBP_Results extends AppCompatActivity {
          mTableLayout.setStretchAllColumns(true);
          startLoadData();
         diastolicTxt = (TextView)findViewById(R.id.Diastolic_txt);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     }
 
@@ -190,21 +191,6 @@ public class DisplayBP_Results extends AppCompatActivity {
             }
 
             tv3.setGravity(Gravity.TOP);
-
-
-            if (i == -1) {
-                tv3.setText("PatientName");
-                tv3.setBackgroundColor(Color.parseColor("#f0f0f0"));
-            } else {
-                tv3.setBackgroundColor(Color.parseColor("#f8f8f8"));
-                tv3.setTextColor(Color.parseColor("#000000"));
-                tv3.setTextSize(TypedValue.COMPLEX_UNIT_PX, smallTextSize);
-                tv3.setText(row.getPatientName());
-            }
-            layCustomer.addView(tv3);
-
-
-
 
             final LinearLayout layAmounts = new LinearLayout(this);
             layAmounts.setOrientation(LinearLayout.VERTICAL);
