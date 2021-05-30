@@ -11,28 +11,11 @@
         android:theme="@style/Theme.AtoZFit">
         <activity android:name=".Activity.GraphViewer"></activity>
         <activity android:name=".Activity.Registration" />
-        <activity
-            android:name=".Activity.DisplayBP_Results"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Activity.AddBPReadings"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Activity.DisplayBP_Results"/>
+        <activity android:name=".Activity.AddBPReadings"/>
         <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
