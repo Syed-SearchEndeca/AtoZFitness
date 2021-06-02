@@ -114,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
             systolicTxt.setText("Systolic:" + " " + bpAttributes.get(size - 1).getSystolic());
             diastolicTxt = (TextView) findViewById(R.id.Diastolic_txt);
             diastolicTxt.setText("Diastolic:" + " " + bpAttributes.get(size - 1).getDiastolic());
-        } else if (size > 1) {
             graphicalView = (ImageButton) findViewById(R.id.GraphicalViewBtn);
             graphicalView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -123,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 }
 
